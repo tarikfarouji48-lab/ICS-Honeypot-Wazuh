@@ -1,24 +1,119 @@
-# Deploy Wazuh Docker in single node configuration
+# ICS/SCADA Attack Detection Platform using Wazuh SIEM
 
-This deployment is defined in the `docker-compose.yml` file with one Wazuh manager containers, one Wazuh indexer containers, and one Wazuh dashboard container. It can be deployed by following these steps: 
+## Overview
 
-1) Increase max_map_count on your host (Linux). This command must be run with root permissions:
-```
-$ sysctl -w vm.max_map_count=262144
-```
-2) Run the certificate creation script:
-```
-$ docker-compose -f generate-indexer-certs.yml run --rm generator
-```
-3) Start the environment with docker-compose:
+This project demonstrates a complete Industrial Control System (ICS/SCADA) cybersecurity platform designed to simulate cyberattacks against an industrial PLC and detect them in real time using Wazuh SIEM.
 
-- In the foregroud:
+The objective is to monitor industrial environments, detect malicious activities, and generate real-time security alerts.
+
+---
+
+## Architecture
+
 ```
-$ docker-compose up
-```
-- In the background:
-```
-$ docker-compose up -d
+                 +----------------------+
+                 |      Kali Linux      |
+                 |   Attack Machine     |
+                 +----------+-----------+
+                            |
+          Modbus / HTTP / Nmap Attacks
+                            |
+                            v
++----------------+     Modbus TCP (502)     +----------------+
+|    OpenPLC     | <----------------------> |    ScadaBR     |
+|  Honeypot PLC  |                          |   HMI / SCADA  |
++--------+-------+                          +-------+--------+
+         |
+         | Logs
+         v
++----------------------+
+|     Wazuh SIEM       |
+| Detection & Analysis |
++----------+-----------+
+           |
+           | Alerts
+           v
++----------------------+
+|    Telegram Bot      |
+| Real-time Alerts     |
++----------------------+
 ```
 
-The environment takes about 1 minute to get up (depending on your Docker host) for the first time since Wazuh Indexer must be started for the first time and the indexes and index patterns must be generated.
+---
+
+## Simulated Attacks
+
+### Modbus Injection
+- Manipulation of PLC registers.
+- Modification of Temperature and Pressure values.
+- Detection using custom Wazuh rules.
+
+### Brute Force Attack
+- Multiple login attempts against the OpenPLC web interface.
+
+### Reconnaissance
+- Nmap scan targeting ports:
+  - TCP 502 (Modbus)
+  - TCP 8080 (OpenPLC)
+
+---
+
+## Detection Results
+
+The platform successfully detects all simulated attacks.
+
+- Wazuh Alert Level 10
+- Wazuh Alert Level 12
+- Wazuh Alert Level 14
+
+Real-time monitoring through:
+
+- Wazuh Dashboard
+- ScadaBR HMI
+- Telegram Bot Notifications
+
+Attack logs are stored in:
+
+```text
+/var/log/openplc/attacks.log
+```
+
+---
+
+## Technologies
+
+- Python
+- Docker
+- Wazuh SIEM
+- OpenPLC
+- ScadaBR
+- Modbus TCP
+- Telegram Bot
+- Kali Linux
+
+---
+
+## Repository Structure
+
+```
+config/
+openplc/
+scadabr/
+honeypot_modbus.py
+docker-compose.yml
+README.md
+```
+
+---
+
+## Future Improvements
+
+- Snort Integration
+- Suricata Integration
+- MITRE ATT&CK Mapping
+- Machine Learning Detection
+- Additional ICS Protocols
+
+---
+
+**TARIK FARROUGI**
