@@ -115,5 +115,53 @@ README.md
 - Additional ICS Protocols
 
 ---
+## Screenshots
+
+### Wazuh Dashboard
+
+![Wazuh Dashboard](screenshots/wazuh-dashboard.png)
+
+---
+
+### Wazuh Alert Details
+
+![Wazuh Alert](screenshots/wazuh-dashboard2.png)
+
+---
+
+### OpenPLC / ScadaBR
+
+![ScadaBR](screenshots/scadaBR.png)
+
+---
+
+### PLC Data Monitoring
+
+![PLC Data](screenshots/scadaBR-data.png)
+
+---
+
+### Watch List
+
+![Watch List](screenshots/scadaBR-watch-list.png)
+
+---
+
+### Telegram Notification
+
+![Telegram Alert](screenshots/alert-telegrame.png)
+
+---
+
+### Python Attack Script
+
+![Python Attack](screenshots/script-python.png)
+
+---
+
+### Wazuh Agent
+
+![Agent](screenshots/agent-wazuh.png)
+
 
 **TARIK FARROUGI**
